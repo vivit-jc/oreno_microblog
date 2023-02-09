@@ -2,33 +2,28 @@
 import { onMounted } from 'vue';
 import { reactive } from '@vue/reactivity';
 import { getPosts } from '@/utils/firebase/read';
-import { db } from '@/utils/firebase/init';
 
-import { getDatabase, ref, onValue} from "firebase/database";
-
-
-let posts = reactive([{text:"abc",date:Date()},{text:"abc",date:Date()}]);
-
-const getData = async () => {
-  console.log("mount test")
-  const dataRef = ref(db, "posts" );
-  onValue(dataRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data)
-  });
-}
+const posts = reactive([])
 
 onMounted(() => {
-  getData()
+  //setData("test");
+  let postarray: object[] = []
+  getPosts((data: object) => {
+    Object.keys(data).forEach(e=>{
+      postarray.push(data[e]);
+    })
+    postarray.sort((a,b) => b.timestamp - a.timestamp);
+    posts.values = postarray;
+  })
 })
 
 </script>
 
 <template>
   <main>
-    <div v-for="post in posts">
+    <div v-for="post in posts.values">
       <p class="text">{{ post.text }}</p>
-      <p class="date">{{ post.date }}</p>
+      <p class="date">{{ new Date(post.timestamp).toLocaleString() }}</p>
     </div>
   </main>
 </template>

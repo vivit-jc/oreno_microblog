@@ -5,12 +5,9 @@ import { db } from "./init";
 // // https://firebase.google.com/docs/database/web/read-and-write
 export const getPosts = (callback) => {
   const dataRef = ref(db, "posts/" );
-  console.log("getposts")
 
   get(dataRef).then((snapshot) => {
-    console.log("dataref")
     if (snapshot.exists()) {
-        console.log("exist")
       if (callback) {
         callback(snapshot.val());
       }
