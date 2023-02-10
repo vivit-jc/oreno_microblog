@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { reactive } from '@vue/reactivity';
+import { ref, reactive } from '@vue/reactivity';
 import { getPosts } from '@/utils/firebase/read';
 
-const posts = reactive([])
+type Post = {
+  text: string,
+  timestamp: number
+};
+
+const posts = ref([] as Post[])
 
 onMounted(() => {
   //setData("test");
-  let postarray: object[] = []
-  getPosts((data: object) => {
+  getPosts((data:any) => {
     Object.keys(data).forEach(e=>{
-      postarray.push(data[e]);
+      posts.value.push(data[e]);
     })
-    postarray.sort((a,b) => b.timestamp - a.timestamp);
-    posts.values = postarray;
+    posts.value.sort((a,b) => b.timestamp - a.timestamp);
   })
 })
 
@@ -21,7 +24,7 @@ onMounted(() => {
 
 <template>
   <main>
-    <div v-for="post in posts.values">
+    <div v-for="post in posts">
       <p class="text">{{ post.text }}</p>
       <p class="date">{{ new Date(post.timestamp).toLocaleString() }}</p>
     </div>
