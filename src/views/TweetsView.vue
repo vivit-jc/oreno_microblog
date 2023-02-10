@@ -18,15 +18,21 @@ onMounted(() => {
       posts.value.push(data[e]);
     })
     posts.value.sort((a,b) => b.timestamp - a.timestamp);
-    posts.value = posts.value.filter(e=>!e.embed)
+    posts.value = posts.value.filter(e=>e.embed && !e.r18)
   })
+  setTimeout(() => {
+    let tweetScript = document.createElement('script')
+    tweetScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
+    tweetScript.setAttribute('async', 'true')
+    document.head.appendChild(tweetScript)
+  }, 200)
 })
 </script>
 
 <template>
   <main>
     <div v-for="post in posts">
-      <p class="text">{{ post.text }}</p>
+      <div v-html="post.text"></div>
       <p class="date">{{ new Date(post.timestamp).toLocaleString() }}</p>
     </div>
   </main>

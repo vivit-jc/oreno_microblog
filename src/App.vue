@@ -7,6 +7,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <h1>Straitter(仮)</h1>
     <nav>
       <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/tweets">Tweets</RouterLink>
       <RouterLink to="/r18">R18</RouterLink>
     </nav>
   </header>
