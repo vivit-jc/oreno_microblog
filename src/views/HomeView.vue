@@ -5,27 +5,35 @@ import { getPosts } from '@/utils/firebase/read';
 
 type Post = {
   text: string,
-  timestamp: number
+  timestamp: number,
+  embed: boolean,
+  r18: boolean
 };
 
 const posts = ref([] as Post[])
 
 onMounted(() => {
-  //setData("test");
   getPosts((data:any) => {
     Object.keys(data).forEach(e=>{
       posts.value.push(data[e]);
     })
     posts.value.sort((a,b) => b.timestamp - a.timestamp);
+    posts.value = posts.value.filter(e=>!e.embed)
   })
+  setTimeout(() => {
+    let tweetScript = document.createElement('script')
+    tweetScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
+    tweetScript.setAttribute('async', 'true')
+    document.head.appendChild(tweetScript)
+  }, 200)
 })
-
 </script>
 
 <template>
   <main>
     <div v-for="post in posts">
-      <p class="text">{{ post.text }}</p>
+      <div v-if="post.embed" v-html="post.text"></div>
+      <p v-else class="text">{{ post.text }}_</p>
       <p class="date">{{ new Date(post.timestamp).toLocaleString() }}</p>
     </div>
   </main>
@@ -37,6 +45,8 @@ onMounted(() => {
   white-space: pre-wrap;
 }
 .date {
+  margin-left: 20px;
   font-size: small;
+  font-style: italic;
 }
 </style>
