@@ -31,6 +31,7 @@ onMounted(() => {
 <style scoped>
 .text {
   font-size: large;
+  white-space: pre-wrap;
 }
 .date {
   font-size: small;
