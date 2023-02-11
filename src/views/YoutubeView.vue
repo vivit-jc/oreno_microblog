@@ -18,14 +18,8 @@ onMounted(() => {
       posts.value.push(data[e]);
     })
     posts.value.sort((a,b) => b.timestamp - a.timestamp);
-    posts.value = posts.value.filter(e=>e.embed && !e.r18&& e.text.match(/twitter/))
+    posts.value = posts.value.filter(e=>e.embed && !e.r18 && e.text.match(/youtube/))
   })
-  setTimeout(() => {
-    let tweetScript = document.createElement('script')
-    tweetScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
-    tweetScript.setAttribute('async', 'true')
-    document.head.appendChild(tweetScript)
-  }, 200)
 })
 </script>
 
