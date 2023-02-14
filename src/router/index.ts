@@ -18,7 +18,7 @@ const router = createRouter({
       component: () => import('../views/AdultView.vue')
     },
     {
-      path: '/tweets',
+      path: '/tweets/:page?',
       name: 'Tweets',
       component: () => import('../views/TweetsView.vue')
     },
