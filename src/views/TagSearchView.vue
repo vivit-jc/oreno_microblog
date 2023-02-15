@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { RouterLink } from 'vue-router';
+import { onMounted, watch } from 'vue';
+import { useRoute, RouterLink } from 'vue-router';
 import { ref, reactive } from '@vue/reactivity';
 import { getPosts } from '@/utils/firebase/read';
 
@@ -13,6 +13,8 @@ type Post = {
 };
 
 const posts = ref([] as Post[])
+const route = useRoute()
+const tag = route.params.tag
 
 onMounted(() => {
   getPosts((data:any) => {
@@ -20,8 +22,12 @@ onMounted(() => {
       posts.value.push(data[e]);
     })
     posts.value.sort((a,b) => b.timestamp - a.timestamp);
-    posts.value = posts.value.filter(e=>!e.embed)
+    posts.value = posts.value.filter(e=>!e.embed&&e.tags&&e.tags.find(t=>t===tag))
   })
+})
+
+watch(route, (n,p) => {
+  location.reload();
 })
 </script>
 
