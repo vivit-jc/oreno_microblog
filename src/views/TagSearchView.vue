@@ -3,6 +3,7 @@ import { onMounted, watch } from 'vue';
 import { useRoute, RouterLink } from 'vue-router';
 import { ref, reactive } from '@vue/reactivity';
 import { getPosts } from '@/utils/firebase/read';
+import { modText } from '@/utils/misc';
 
 type Post = {
   text: string,
@@ -22,7 +23,7 @@ onMounted(() => {
       posts.value.push(data[e]);
     })
     posts.value.sort((a,b) => b.timestamp - a.timestamp);
-    posts.value = posts.value.filter(e=>!e.embed&&e.tags&&e.tags.find(t=>t===tag))
+    posts.value = posts.value.filter(e=>e.tags&&e.tags.find(t=>t===tag))
   })
 })
 
@@ -34,7 +35,7 @@ watch(route, (n,p) => {
 <template>
   <main>
     <div v-for="post in posts">
-      <p class="text">{{ post.text }}</p>
+      <p class="text"><div v-html="modText(post.text)"></div></p>
       <p class="info">
         <span class="date">{{ new Date(post.timestamp).toLocaleString() }}</span>
         <span class="tag" v-for="tag in post.tags"><RouterLink :to="{name:'TagSearch',params:{tag:tag}}">{{ tag }}</RouterLink></span>
