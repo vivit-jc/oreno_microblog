@@ -40,8 +40,17 @@ onMounted(() => {
 
 function clickStar(id: number){
   let f = favs.value.find(e=>e.id==id)
+  if(f==undefined){
+    return false
+  }
   fav(id, f.fav)
   f.fav += 1
+}
+
+function favcount(values: Fav[],id: number){
+  const f = values.find(e=>e.id==id)
+  if(f==undefined){return 0}
+  return f.fav
 }
 
 watch(route, (n,p) => {
@@ -55,7 +64,7 @@ watch(route, (n,p) => {
       <p class="text"><div v-html="modText(post.text)"></div></p>
       <p class="info">
         <span class="date">{{ new Date(post.timestamp).toLocaleString() }}</span>
-        <span class="fav" @click="clickStar(post.timestamp)">★{{ favs.find(e=>e.id==post.timestamp).fav }}</span>
+        <span class="fav" @click="clickStar(post.timestamp)">★{{ favcount(favs,post.timestamp) }}</span>
         <span class="tag" v-for="tag in post.tags"><RouterLink :to="{name:'TagSearch',params:{tag:tag}}">{{ tag }}</RouterLink></span>
       </p>
     </div>
