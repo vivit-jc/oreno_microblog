@@ -1,4 +1,4 @@
-import { ref, get, set, onValue } from "firebase/database";
+import { ref, get } from "firebase/database";
 import { db } from "./init";
 
 // 一度だけ値を取得する
