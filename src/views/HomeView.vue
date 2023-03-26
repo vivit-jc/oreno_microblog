@@ -2,8 +2,8 @@
 import { onMounted, watch } from 'vue';
 import { useRoute, RouterLink } from 'vue-router';
 import { ref, reactive } from '@vue/reactivity';
-import { getPosts } from '@/utils/firebase/write';
-import { fav } from '@/utils/firebase/read';
+import { getPosts } from '@/utils/firebase/read';
+import { fav } from '@/utils/firebase/write';
 import { modText } from '@/utils/misc';
 
 type Post = {
