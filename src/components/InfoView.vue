@@ -31,9 +31,31 @@ function clickStar(fav: Fav){
 <template>
     <p class="info">
     <span class="date">{{ new Date(post.timestamp).toLocaleString() }}</span>
-    <span class="fav" @click="clickStar(fav)">★{{ temp_fav }}</span>
+    <span class="fav animoBorderMarker" @click="clickStar(fav)">★{{ temp_fav }}</span>
     <span class="tag" v-for="tag in post.tags">
         <RouterLink :to="{name:'TagSearch',params:{tag:tag}}">{{ tag }}</RouterLink>
     </span>
     </p>
 </template>
+
+<style scoped>
+
+.animoBorderMarker{
+  display:inline-block;
+  position:relative;
+  cursor:pointer
+}
+.animoBorderMarker::after{
+  content:'';
+  position:absolute;
+  z-index:-1;
+  top:85%;
+  left:-.1px;
+  right:-.1px;
+  bottom:0;
+  transition:top .1s ease-in-out;
+  background-color:rgba(243,156,18,.8)
+}
+.animoBorderMarker:hover::after{top:0}
+        
+</style>
