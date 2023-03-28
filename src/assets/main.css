@@ -20,3 +20,17 @@ a,
     background-color: hsla(160, 100%, 37%, 0.2);
   }
 }
+
+.info {
+  margin-left: 20px;
+  font-size: small;
+  font-style: italic;
+}
+
+.date{
+  margin-right: 10px;
+}
+
+.tag{
+  margin-left: 12px;
+}
