@@ -12,6 +12,7 @@
           <tr><td>BOOTH</td><td><a href="https://jccreates.booth.pm/" target="_blank">J.C.クリエイツ</a></td></tr>
           <tr><td>ゲームマーケット公式サイト内スペース</td><td><a href="https://gamemarket.jp/booth/1173" target="_blank">J.C.クリエイツ</a></td></tr>
           <tr><td>Mastodon</td><td><a href="https://tablegame.mstdn.cloud/@vivit_jc" target="_blank">@vivit_jc@tablegame.mstdn.cloud</a></td></tr>
+          <tr><td>Misskey</td><td><a href="https://misskey.design/@vivit_jc" target="_blank">@vivit_jc@misskey.design</a></td></tr>
           <tr><td>Discord</td><td>土井ヴぃ#4125</td></tr>
           <tr><td><s>Twitter</s></td><td><s><a href="https://twitter.com/vivit_jc" target="_blank">@vivit_jc</a></s></td></tr>
         </table>
