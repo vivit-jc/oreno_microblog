@@ -10,3 +10,12 @@ export function modText(text: string){
   }
   return text
 }
+
+export function delayLoadTweetScript(){
+  setTimeout(() => {
+    let tweetScript = document.createElement('script')
+    tweetScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
+    tweetScript.setAttribute('async', 'true')
+    document.head.appendChild(tweetScript)
+  }, 500)
+}

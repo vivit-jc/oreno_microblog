@@ -3,7 +3,7 @@ import { onMounted, watch } from 'vue';
 import { useRoute, RouterLink } from 'vue-router';
 import { ref } from '@vue/reactivity';
 import { getPosts } from '@/utils/firebase/read';
-import { modText } from '@/utils/misc';
+import { delayLoadTweetScript, modText } from '@/utils/misc';
 import InfoView from '../components/InfoView.vue';
 
 const posts = ref([] as Post[])
@@ -23,12 +23,7 @@ onMounted(() => {
     posts.value.sort((a,b) => b.timestamp - a.timestamp);
     posts.value = posts.value.filter(e=>e.tags&&e.tags.find(t=>t===tag))
   })
-  setTimeout(() => {
-    let tweetScript = document.createElement('script')
-    tweetScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
-    tweetScript.setAttribute('async', 'true')
-    document.head.appendChild(tweetScript)
-  }, 500)
+  delayLoadTweetScript()
 })
 
 watch(route, (n,p) => {

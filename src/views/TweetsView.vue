@@ -4,6 +4,7 @@ import { useRoute, RouterLink } from 'vue-router';
 import { ref } from '@vue/reactivity';
 import { getPosts } from '@/utils/firebase/read';
 import InfoView from '../components/InfoView.vue';
+import { delayLoadTweetScript } from '@/utils/misc';
 
 const route = useRoute()
 const page = Number(route.params.page)
@@ -24,12 +25,7 @@ onMounted(() => {
     posts.value = posts.value.filter(e=>e.embed && !e.r18&& e.text.match(/twitter/)).slice(page*10,page*10+10)
     if(posts.value.length==0){loading.value = "Tweetがありません。多分遡りすぎです。"}
   })
-  setTimeout(() => {
-    let tweetScript = document.createElement('script')
-    tweetScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
-    tweetScript.setAttribute('async', 'true')
-    document.head.appendChild(tweetScript)
-  }, 500)
+  delayLoadTweetScript()
 })
 
 watch(route, (n,p) => {
