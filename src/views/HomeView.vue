@@ -5,11 +5,12 @@ import { ref } from '@vue/reactivity';
 import { getPosts } from '@/utils/firebase/read';
 import { modText } from '@/utils/misc';
 import InfoView from '../components/InfoView.vue';
+import PageLink from '../components/PageLink.vue';
 
 let posts = ref([] as Post[])
 const route = useRoute()
 let page = Number(route.params.page)
-let pages = 0
+let page_max = 0
 let favs = ref([] as Fav[])
 
 onMounted(() => {
@@ -26,7 +27,7 @@ onMounted(() => {
     })
     posts.value.sort((a,b) => b.timestamp - a.timestamp);
     posts.value = posts.value.filter(e=>!e.embed)
-    pages = Math.floor(posts.value.length/100)
+    page_max = Math.floor(posts.value.length/100)
     posts.value = posts.value.slice(page*100,page*100+100)
   })
 })
@@ -43,11 +44,7 @@ watch(route, (n,p) => {
       <p class="text"><div v-html="modText(post.text)"></div></p>
       <InfoView :post="post" :fav="favs.find(e=>e.id==post.timestamp)??{id:0,fav:0}" />
     </div>
-    <nav>
-      <RouterLink class="page_link" v-for="n of pages+1" :to="{name:'home with page', params: {page: n-1}}" :key="n">
-        <span v-if="page!=n-1">{{ n-1 }}</span>
-      </RouterLink>
-    </nav>
+    <PageLink :page="page" :max="page_max" jump_to="home with page" />
   </main>
 </template>
 
@@ -55,8 +52,5 @@ watch(route, (n,p) => {
 .text {
   font-size: large;
   white-space: pre-wrap;
-}
-.page_link{
-  margin-left: 4px;
 }
 </style>
