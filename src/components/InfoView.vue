@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import { onMounted } from 'vue';
-import { ref } from '@vue/reactivity';
+import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { setFav } from "@/utils/firebase/write"
 
@@ -32,8 +32,8 @@ function clickStar(fav: Fav){
     <p class="info">
     <span class="date">{{ new Date(post.timestamp).toLocaleString() }}</span>
     <span class="fav animoBorderMarker" @click="clickStar(fav)">★{{ temp_fav }}</span>
-    <span class="tag" v-for="tag in post.tags">
-        <RouterLink :to="{name:'TagSearch',params:{tag:tag}}">{{ tag }}</RouterLink>
+    <span class="tag" v-for="(tag,i) in post.tags" :key="i">
+      <RouterLink :to="{name:'TagSearch',params:{tag:tag}}">{{ tag }}</RouterLink>
     </span>
     </p>
 </template>

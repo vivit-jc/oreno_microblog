@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
-import { useRoute, RouterLink } from 'vue-router';
-import { ref } from '@vue/reactivity';
+import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 import { getPosts } from '@/utils/firebase/read';
 import InfoView from '../components/InfoView.vue';
 import { delayLoadTweetScript } from '@/utils/misc';
@@ -32,7 +32,7 @@ onMounted(() => {
   delayLoadTweetScript()
 })
 
-watch(route, (n,p) => {
+watch(route, () => {
   location.reload();
 })
 </script>
@@ -43,7 +43,7 @@ watch(route, (n,p) => {
     <div v-if="posts.length==0">
       {{ loading }}
     </div>
-    <div v-for="post in posts">
+    <div v-for="(post,i) in posts" :key="i">
       <div v-html="post.text"></div>
       <InfoView :post="post" :fav="favs.find(e=>e.id==post.timestamp)??{id:0,fav:0}" />
     </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
-import { useRoute, RouterLink } from 'vue-router';
-import { ref } from '@vue/reactivity';
+import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 import { getPosts } from '@/utils/firebase/read';
 import { modText } from '@/utils/misc';
 import InfoView from '../components/InfoView.vue';
@@ -32,7 +32,7 @@ onMounted(() => {
   })
 })
 
-watch(route, (n,p) => {
+watch(route, () => {
   location.reload();
 })
 
@@ -40,8 +40,8 @@ watch(route, (n,p) => {
 
 <template>
   <main>
-    <div v-for="post in posts">
-      <p class="text"><div v-html="modText(post.text)"></div></p>
+    <div v-for="(post,i) in posts" :key="i">
+      <div class="text" v-html="modText(post.text)"></div>
       <InfoView :post="post" :fav="favs.find(e=>e.id==post.timestamp)??{id:0,fav:0}" />
     </div>
     <PageLink :page="page" :max="page_max" jump_to="home with page" />
