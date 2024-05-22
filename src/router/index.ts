@@ -28,7 +28,7 @@ const router = createRouter({
       component: () => import('../views/TweetsView.vue')
     },
     {
-      path: '/youtube',
+      path: '/youtube/:page?',
       name: 'Youtube',
       component: () => import('../views/YoutubeView.vue')
     },

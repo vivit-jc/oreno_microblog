@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import { setFav } from "@/utils/firebase/write"
 

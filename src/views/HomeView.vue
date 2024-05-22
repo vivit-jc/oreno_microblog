@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { ref } from 'vue';
 import { getPosts } from '@/utils/firebase/read';
 import { modText } from '@/utils/misc';
 import InfoView from '../components/InfoView.vue';
